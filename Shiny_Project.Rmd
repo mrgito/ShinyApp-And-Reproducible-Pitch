@@ -1,0 +1,88 @@
+---
+title: "Shiny Project - Customisable Plot for Random Normal Distribution"
+author: "Gito"
+date: "2024-11-15"
+output: slidy_presentation
+---
+
+## Executive Summary
+
+This Project is part of Coursera - John Hopkins on R Data Science Specialization with topic Shiny App and Reproducible Pitch.
+
+I made Customisable Plot for Random Normal Distribution with customisable mean, standard deviation and number of samples with reactivity plot.
+
+Below are the steps in creating shiny web app :
+
+1.  2 files generated for ui.R and server.R and install necessary library
+2.  ui.R file is user interface input to genarate the variables (mean, standard deviation and number of samples)
+3.  server.R is plotting function
+
+## User Interface File (ui.R)
+
+UI page is managed by ui.R. I select page which consists of tabs and panel.
+
+Tabs consists of main tab and documentation tab
+
+Panel consists of input variable and plot.
+
+Below are code to generate the ui.R \*\*\* The code might not be executed properly in presenation mode, you can see result on github page or rpub
+
+```{r }
+library(shiny)
+library(rmarkdown)
+rmdfile <- c("About.Rmd")
+fluidPage(
+    # Application title
+    titlePanel("Normal Distibution Density Plot Generator with Customisable Mean, Standar Deviation and Number of Samples"),
+    # Sidebar with a slider input for number of bins
+    tabsetPanel(
+      tabPanel("Main Page",
+    sidebarLayout(
+        sidebarPanel(
+          helpText("Please select value wisely so you can see proper plot"),
+          numericInput("randnum", "Please fill Number of Samples? Select > 1",
+                       value = 10),
+          numericInput("mean", "Please fill Mean",
+                       value = 1),
+          numericInput("sd", "Please fill Stdandar Deviation",
+                       value = 2),
+          sliderInput("xslider","Select X-axis Zoom with default value -100 to 100",
+                        min = -100,max = 100,value = c(-10,10)),
+          submitButton("Submit to Plot")
+        ),
+        # Show a plot of the generated distribution
+        mainPanel(
+            plotOutput("plot1")
+        )
+    )
+), tabPanel("Documentation/About",
+            mainPanel(
+              includeMarkdown("About.Rmd")
+            ))
+)
+)
+```
+
+## Server File (server.R)
+
+Server file is used to manage plot function.
+
+```{r }
+library(shiny)
+# Define server logic required to draw a histogram
+function(input, output, session) {
+    output$plot1 <- renderPlot({
+        # generate bins based on input$bins from ui.R
+        x    <- rnorm(input$randnum,input$mean,input$sd)
+        xd <- density(x)
+        plot(xd,xlim = c(input$xslider[1],input$xslider[2]),
+             main = "Density Chart",
+             xlab = "Value",ylab = "Density",
+             col = "blue",lwd = 4)
+    })
+}
+```
+
+## Documentation
+
+Documentation and result can be found on below github and rpub links

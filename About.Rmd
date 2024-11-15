@@ -1,0 +1,22 @@
+---
+title: "About"
+author: "Gito"
+date: "2024-11-15"
+output: html_document
+---
+
+# **About**
+
+This Project is part of Coursera - John Hopkins Course on Data Science Specialization on Shiny Application and Reproducible Pitch.
+
+This Project is about plotting Random Normal Distribution with customisable mean, standard deviation and number of samples with reactivity zoom function.
+
+-   Please input your desired number of samples (\> 1), select input wisely so you can see the plot properly
+
+-   Please fill input of your desired mean
+
+-   Please fill input of your desired standard deviation
+
+-   Adjust the x - zoom
+
+-   Hit button
